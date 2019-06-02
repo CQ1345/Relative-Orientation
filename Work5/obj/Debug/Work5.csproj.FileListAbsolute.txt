@@ -1,0 +1,10 @@
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\obj\Debug\Work5.csprojAssemblyReference.cache
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\obj\Debug\Work5.Form1.resources
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\obj\Debug\Work5.Properties.Resources.resources
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\obj\Debug\Work5.csproj.GenerateResource.cache
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\obj\Debug\Work5.csproj.CoreCompileInputs.cache
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\bin\Debug\Work5.exe.config
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\bin\Debug\Work5.exe
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\bin\Debug\Work5.pdb
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\obj\Debug\Work5.exe
+D:\教案\大二下 摄影测量\作业\Work5\Work5\Work5\obj\Debug\Work5.pdb
