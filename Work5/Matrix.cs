@@ -51,6 +51,16 @@ namespace Work5
                 }
             return result;
         }
+        public static double[,] Mutiply(double lamda,double[,] matrix)
+        {
+            int r = matrix.GetLength(0);
+            int c = matrix.GetLength(1);
+            double[,] result = new double[r, c];
+            for (int i = 0; i < r; i++)
+                for (int j = 0; i < c; j++)
+                    result[i, j] = matrix[i, j] * lamda;
+            return result;
+        }
         
         //求逆
         public static double[,] Inverse(double[,] a)

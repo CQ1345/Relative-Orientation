@@ -124,7 +124,6 @@ namespace Work5
                 int num = 1;
                 using(StreamWriter sw=new StreamWriter(file))
                 {
-                    sw.WriteLine("ID,    X,    Y,    Z");
                     foreach(MyPoint i in result)
                         sw.WriteLine("{0},{1},{2},{3}", num++, i.X, i.Y, i.Z);
                 }
@@ -148,8 +147,24 @@ namespace Work5
                 float kappa = (float)(ro.RightEE.Kappa / Math.PI * 180);
                 sw.WriteLine();
                 sw.WriteLine();
-                sw.WriteLine("{0},{1}", ro.by, ro.bz);
+                sw.WriteLine("{0},{1},{2}", ro.bx, ro.by, ro.bz);
                 sw.WriteLine("{0},{1},{2}", phi, omega, kappa);
+            }
+        }
+        //保存绝对定向元素
+        private void SaveAOE()
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "文本文件(*.txt)|*.txt";
+            if(dialog.ShowDialog()==DialogResult.OK)
+            {
+                string filename = dialog.FileName;
+                using (StreamWriter sw=new StreamWriter(filename))
+                {
+                    sw.WriteLine("{0}", ao.lamda);
+                    sw.WriteLine("{0},{1},{2}", ao.dx, ao.dy, ao.dz);
+                    sw.WriteLine("{0},{1},{2}", ao.Phi, ao.Omega, ao.Kappa);
+                }
             }
         }
 
@@ -158,31 +173,20 @@ namespace Work5
         {
             List<MyPoint> GCP = new List<MyPoint>();
             List<MyPoint> PCP = new List<MyPoint>();
-            MyPoint temp;
-            string filename;
-            string line;
-            string[] data;
+            string title;
 
-            //读取控制点地面摄影测量坐标
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Title = "选择控制点的地面摄影测量坐标";
-            dialog.Filter = "文本文件(*.txt)|*.txt";
-            if(dialog.ShowDialog()==DialogResult.OK)
-            {
-                filename = dialog.FileName;
-                using(StreamReader sr=new StreamReader(filename))
-                {
-                    while((line=sr.ReadLine())!=null&&line.Length!=0)
-                    {
-                        data = line.Split(',');
-                        temp = new MyPoint();
-                        temp.X = float.Parse(data[1]);
-                        temp.Y = float.Parse(data[2]);
-                        temp.Z = float.Parse(data[3]);
+            //读取控制点坐标
+            title= "选择控制点的地面摄影测量坐标";
+            GCP = GetPoints(title);
+            title = "选择控制点的摄影测量坐标";
+            PCP = GetPoints(title);
 
-                    }
-                }
-            }
+            //解算
+            ao = new AbsoluteOrientation();
+            ao.CalAOE(GCP, PCP);
+
+            //保存绝对定向元素
+            SaveAOE();
         }
 
         //从文件读取绝对定向元素
@@ -229,7 +233,7 @@ namespace Work5
         //读取坐标
         private List<MyPoint> GetPoints(string title)
         {
-            List<MyPoint> result = new List<MyPoint>();
+            List<MyPoint> coords = new List<MyPoint>();
             MyPoint temp;
             string filename;
             string line;
@@ -251,12 +255,11 @@ namespace Work5
                         temp.X = float.Parse(data[1]);
                         temp.Y = float.Parse(data[2]);
                         temp.Z = float.Parse(data[3]);
-                        result.Add(temp);
+                        coords.Add(temp);
                     }
                 }
             }
-            return result;
+            return coords;
         }
-
     }
 }

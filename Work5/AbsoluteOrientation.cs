@@ -38,13 +38,14 @@ namespace Work5
             ATA = new double[7, 7];
             ATL = new double[7, 1];
             double[,] dX;
+            double[,] Xtpg, Xpg, delta;
 
             //初始化绝对定向元素的初始值
             e = new EElements(0, 0, 0);
             lamda = 1;
             dx = dy = dz = 0;
             //坐标重心化
-            GetGravityCoords(ref GCP, ref PCP);
+            GetGravityCoords(ref GCP, ref PCP, out Xtpg, out Xpg);
             do
             {
                 //计算系数
@@ -57,10 +58,18 @@ namespace Work5
                 e.Omega += (float)dX[5, 0];
                 e.Kappa += (float)dX[6, 0];
             } while (IsQualified(dX));
+
+            //变换为真正的绝对定向元素
+            Xpg = Matrix.Mutiply(lamda, Xpg);
+            delta = Matrix.Subtract(Xtpg, Matrix.Mutiply(e.R, Xpg));
+            dx = (float)delta[0, 0];
+            dy = (float)delta[1, 0];
+            dz = (float)delta[2, 0];
         }
 
         //坐标重心化
-        private void GetGravityCoords(ref List<MyPoint> GCP,ref List<MyPoint> PCP)
+        private void GetGravityCoords(ref List<MyPoint> GCP, ref List<MyPoint> PCP,
+            out double[,] Xtpg, out double[,] Xpg)
         {
             int num = GCP.Count();
             //计算坐标重心
@@ -81,6 +90,8 @@ namespace Work5
             gCenter.X /= num;
             gCenter.Y /= num;
             gCenter.Z /= num;
+            Xtpg = new double[3, 1] { { gCenter.X }, { gCenter.Y }, { gCenter.Z } };
+            Xpg=new double[3, 1] { { pCenter.X }, { pCenter.Y }, { pCenter.Z } };
 
             //坐标重心化
             for (int i = 0; i < num; i++)
