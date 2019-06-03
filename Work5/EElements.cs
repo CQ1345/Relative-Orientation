@@ -8,7 +8,7 @@ namespace Work5
 {
     class EElements//外方位元素
     {
-        private MyPoint s = new MyPoint();//摄影中心
+        private MyPoint s;//摄影中心
         private float phi;//航向倾角
         private float omega;//旁向倾角
         private float kappa;//像片旋角
@@ -48,6 +48,13 @@ namespace Work5
         public EElements(MyPoint center, float p, float o, float k)
         {
             S = center;
+            Phi = p;
+            Omega = o;
+            Kappa = k;
+            flag = false;
+        }
+        public EElements(float p,float o,float k)
+        {
             Phi = p;
             Omega = o;
             Kappa = k;

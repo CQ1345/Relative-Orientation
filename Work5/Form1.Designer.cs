@@ -28,175 +28,187 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.计算相对定向元素ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.计算相对定向元素ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.计算模型坐标ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.计算摄影测量坐标ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.计算模型坐标ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.解算绝对定向元素ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.输入绝对定向元素ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.计算地面摄影测量坐标ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.保存坐标ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Z = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // menuStrip1
             // 
-            this.button1.Location = new System.Drawing.Point(69, 61);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(65, 61);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "读取数据";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.计算相对定向元素ToolStripMenuItem,
+            this.计算模型坐标ToolStripMenuItem,
+            this.保存坐标ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(769, 32);
+            this.menuStrip1.TabIndex = 13;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // button2
+            // 计算相对定向元素ToolStripMenuItem
             // 
-            this.button2.Location = new System.Drawing.Point(350, 61);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(65, 61);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "计算";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.计算相对定向元素ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.计算相对定向元素ToolStripMenuItem1,
+            this.计算模型坐标ToolStripMenuItem1,
+            this.计算摄影测量坐标ToolStripMenuItem});
+            this.计算相对定向元素ToolStripMenuItem.Name = "计算相对定向元素ToolStripMenuItem";
+            this.计算相对定向元素ToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.计算相对定向元素ToolStripMenuItem.Text = "相对定向";
             // 
-            // button3
+            // 计算相对定向元素ToolStripMenuItem1
             // 
-            this.button3.Location = new System.Drawing.Point(640, 61);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(65, 61);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "保存";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            this.计算相对定向元素ToolStripMenuItem1.Name = "计算相对定向元素ToolStripMenuItem1";
+            this.计算相对定向元素ToolStripMenuItem1.Size = new System.Drawing.Size(254, 34);
+            this.计算相对定向元素ToolStripMenuItem1.Text = "解算相对定向元素";
+            this.计算相对定向元素ToolStripMenuItem1.Click += new System.EventHandler(this.计算相对定向元素ToolStripMenuItem1_Click);
             // 
-            // label1
+            // 计算模型坐标ToolStripMenuItem1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(133, 217);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 21);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "bY:";
+            this.计算模型坐标ToolStripMenuItem1.Name = "计算模型坐标ToolStripMenuItem1";
+            this.计算模型坐标ToolStripMenuItem1.Size = new System.Drawing.Size(254, 34);
+            this.计算模型坐标ToolStripMenuItem1.Text = "计算模型坐标";
+            this.计算模型坐标ToolStripMenuItem1.Click += new System.EventHandler(this.计算模型坐标ToolStripMenuItem1_Click);
             // 
-            // textBox1
+            // 计算摄影测量坐标ToolStripMenuItem
             // 
-            this.textBox1.Location = new System.Drawing.Point(170, 213);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 28);
-            this.textBox1.TabIndex = 4;
+            this.计算摄影测量坐标ToolStripMenuItem.Name = "计算摄影测量坐标ToolStripMenuItem";
+            this.计算摄影测量坐标ToolStripMenuItem.Size = new System.Drawing.Size(254, 34);
+            this.计算摄影测量坐标ToolStripMenuItem.Text = "计算摄影测量坐标";
+            this.计算摄影测量坐标ToolStripMenuItem.Click += new System.EventHandler(this.计算摄影测量坐标ToolStripMenuItem_Click);
             // 
-            // textBox2
+            // 计算模型坐标ToolStripMenuItem
             // 
-            this.textBox2.Location = new System.Drawing.Point(539, 216);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 28);
-            this.textBox2.TabIndex = 6;
+            this.计算模型坐标ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.解算绝对定向元素ToolStripMenuItem,
+            this.输入绝对定向元素ToolStripMenuItem,
+            this.计算地面摄影测量坐标ToolStripMenuItem});
+            this.计算模型坐标ToolStripMenuItem.Name = "计算模型坐标ToolStripMenuItem";
+            this.计算模型坐标ToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.计算模型坐标ToolStripMenuItem.Text = "绝对定向";
             // 
-            // label2
+            // 解算绝对定向元素ToolStripMenuItem
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(502, 220);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 21);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "bZ:";
+            this.解算绝对定向元素ToolStripMenuItem.Name = "解算绝对定向元素ToolStripMenuItem";
+            this.解算绝对定向元素ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
+            this.解算绝对定向元素ToolStripMenuItem.Text = "解算绝对定向元素";
+            this.解算绝对定向元素ToolStripMenuItem.Click += new System.EventHandler(this.解算绝对定向元素ToolStripMenuItem_Click);
             // 
-            // textBox3
+            // 输入绝对定向元素ToolStripMenuItem
             // 
-            this.textBox3.Location = new System.Drawing.Point(170, 297);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 28);
-            this.textBox3.TabIndex = 8;
+            this.输入绝对定向元素ToolStripMenuItem.Name = "输入绝对定向元素ToolStripMenuItem";
+            this.输入绝对定向元素ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
+            this.输入绝对定向元素ToolStripMenuItem.Text = "输入绝对定向元素";
+            this.输入绝对定向元素ToolStripMenuItem.Click += new System.EventHandler(this.输入绝对定向元素ToolStripMenuItem_Click);
             // 
-            // label3
+            // 计算地面摄影测量坐标ToolStripMenuItem
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(139, 301);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 21);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "φ:";
+            this.计算地面摄影测量坐标ToolStripMenuItem.Name = "计算地面摄影测量坐标ToolStripMenuItem";
+            this.计算地面摄影测量坐标ToolStripMenuItem.Size = new System.Drawing.Size(290, 34);
+            this.计算地面摄影测量坐标ToolStripMenuItem.Text = "计算地面摄影测量坐标";
+            this.计算地面摄影测量坐标ToolStripMenuItem.Click += new System.EventHandler(this.计算地面摄影测量坐标ToolStripMenuItem_Click);
             // 
-            // textBox4
+            // 保存坐标ToolStripMenuItem
             // 
-            this.textBox4.Location = new System.Drawing.Point(350, 300);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 28);
-            this.textBox4.TabIndex = 10;
+            this.保存坐标ToolStripMenuItem.Name = "保存坐标ToolStripMenuItem";
+            this.保存坐标ToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
+            this.保存坐标ToolStripMenuItem.Text = "保存坐标";
+            this.保存坐标ToolStripMenuItem.Click += new System.EventHandler(this.保存坐标ToolStripMenuItem_Click);
             // 
-            // label4
+            // dataGridView1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(318, 304);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 21);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "ω:";
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.X,
+            this.Y,
+            this.Z});
+            this.dataGridView1.Location = new System.Drawing.Point(51, 54);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 62;
+            this.dataGridView1.RowTemplate.Height = 30;
+            this.dataGridView1.Size = new System.Drawing.Size(663, 229);
+            this.dataGridView1.TabIndex = 14;
             // 
-            // textBox5
+            // ID
             // 
-            this.textBox5.Location = new System.Drawing.Point(539, 297);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 28);
-            this.textBox5.TabIndex = 12;
+            this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 8;
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 150;
             // 
-            // label5
+            // X
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(511, 301);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(24, 21);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "κ:";
+            this.X.HeaderText = "X";
+            this.X.MinimumWidth = 8;
+            this.X.Name = "X";
+            this.X.ReadOnly = true;
+            this.X.Width = 150;
+            // 
+            // Y
+            // 
+            this.Y.HeaderText = "Y";
+            this.Y.MinimumWidth = 8;
+            this.Y.Name = "Y";
+            this.Y.ReadOnly = true;
+            this.Y.Width = 150;
+            // 
+            // Z
+            // 
+            this.Z.HeaderText = "Z";
+            this.Z.MinimumWidth = 8;
+            this.Z.Name = "Z";
+            this.Z.ReadOnly = true;
+            this.Z.Width = 150;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(769, 450);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "相对定向元素解算";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 计算相对定向元素ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 计算相对定向元素ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 计算模型坐标ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 计算摄影测量坐标ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 计算模型坐标ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 解算绝对定向元素ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 计算地面摄影测量坐标ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 输入绝对定向元素ToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn X;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Y;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Z;
+        private System.Windows.Forms.ToolStripMenuItem 保存坐标ToolStripMenuItem;
     }
 }
