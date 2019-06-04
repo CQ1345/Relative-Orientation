@@ -136,7 +136,6 @@ namespace Work5
             }
 
             return modelCoords;
-
         }
 
         //计算点的摄影测量坐标

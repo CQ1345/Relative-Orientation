@@ -56,7 +56,7 @@
             this.保存坐标ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(769, 32);
+            this.menuStrip1.Size = new System.Drawing.Size(947, 32);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -137,11 +137,11 @@
             this.X,
             this.Y,
             this.Z});
-            this.dataGridView1.Location = new System.Drawing.Point(51, 54);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 35);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 30;
-            this.dataGridView1.Size = new System.Drawing.Size(663, 229);
+            this.dataGridView1.Size = new System.Drawing.Size(935, 403);
             this.dataGridView1.TabIndex = 14;
             // 
             // ID
@@ -180,12 +180,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 450);
+            this.ClientSize = new System.Drawing.Size(947, 450);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "相对定向元素解算";
+            this.Text = "双像解析计算";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

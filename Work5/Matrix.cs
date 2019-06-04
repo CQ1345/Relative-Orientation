@@ -57,7 +57,7 @@ namespace Work5
             int c = matrix.GetLength(1);
             double[,] result = new double[r, c];
             for (int i = 0; i < r; i++)
-                for (int j = 0; i < c; j++)
+                for (int j = 0; j < c; j++)
                     result[i, j] = matrix[i, j] * lamda;
             return result;
         }

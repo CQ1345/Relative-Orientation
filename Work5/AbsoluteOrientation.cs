@@ -9,7 +9,7 @@ namespace Work5
     class AbsoluteOrientation
     {
         EElements e;
-        List<MyPoint> pCoords;//点的摄影测量坐标
+        //List<MyPoint> pCoords;//点的摄影测量坐标
         double[,] ATA;//ATA系数矩阵
         double[,] ATL;//ATL常数项向量
 
@@ -36,7 +36,6 @@ namespace Work5
         public void CalAOE(List<MyPoint> GCP,List<MyPoint> PCP)
         {
             ATA = new double[7, 7];
-            ATL = new double[7, 1];
             double[,] dX;
             double[,] Xtpg, Xpg, delta;
 
@@ -44,20 +43,22 @@ namespace Work5
             e = new EElements(0, 0, 0);
             lamda = 1;
             dx = dy = dz = 0;
-            //坐标重心化
-            GetGravityCoords(ref GCP, ref PCP, out Xtpg, out Xpg);
+            
+            GetGravityCoords(ref GCP, ref PCP, out Xtpg, out Xpg);//坐标重心化
+            Init_ATA(PCP);//为ATA矩阵赋值
+            ATA = Matrix.Inverse(ATA);//将ATA矩阵求逆
             do
             {
-                //计算系数
+                //计算常系数ATL
                 CalFactors(GCP, PCP);
                 //求解改正数
-                dX = Matrix.Mutiply(Matrix.Inverse(ATA), ATL);
+                dX = Matrix.Mutiply(ATA, ATL);
                 //改正
                 lamda += (float)dX[3, 0];
                 e.Phi += (float)dX[4, 0];
                 e.Omega += (float)dX[5, 0];
                 e.Kappa += (float)dX[6, 0];
-            } while (IsQualified(dX));
+            } while (IsQualified(dX) == false);
 
             //变换为真正的绝对定向元素
             Xpg = Matrix.Mutiply(lamda, Xpg);
@@ -109,14 +110,39 @@ namespace Work5
         private void CalFactors(List<MyPoint> GCP,List<MyPoint> PCP)
         {
             int num = GCP.Count();
-            float X2, Y2, Z2;
             double[,] Ltp = new double[3, 1];
             double[,] Lp = new double[3, 1];
-            double[,] L = new double[3, 1];
-
-            ATA[0, 0] = ATA[1, 1] = ATA[2, 2] = num;
+            double[,] L;
+            ATL = new double[7, 1];
             
             for(int i=0;i<num;i++)
+            {
+                Ltp[0, 0] = GCP[i].X;
+                Ltp[1, 0] = GCP[i].Y;
+                Ltp[2, 0] = GCP[i].Z;
+                Lp[0, 0] = lamda * PCP[i].X;
+                Lp[1, 0] = lamda * PCP[i].Y;
+                Lp[2, 0] = lamda * PCP[i].Z;
+                Lp = Matrix.Mutiply(e.R, Lp);
+                L = Matrix.Subtract(Ltp, Lp);
+                ATL[0, 0] += L[0, 0];
+                ATL[3, 0] += PCP[i].X * L[0, 0] + PCP[i].Y * L[1, 0] + PCP[i].Z * L[2, 0];
+                ATL[4, 0] += PCP[i].X * L[2, 0] - PCP[i].Z * L[0, 0];
+                ATL[5, 0] += PCP[i].Y * L[2, 0] - PCP[i].Z * L[1, 0];
+                ATL[6, 0] += PCP[i].X * L[1, 0] - PCP[i].Y * L[0, 0];
+            }
+
+        }
+
+        //初始化ATA
+        private void Init_ATA(List<MyPoint> PCP)
+        {
+            int num = PCP.Count();
+            float X2, Y2, Z2;
+
+            ATA[0, 0] = ATA[1, 1] = ATA[2, 2] = num;
+
+            for (int i = 0; i < num; i++)
             {
                 X2 = PCP[i].X * PCP[i].X;
                 Y2 = PCP[i].Y * PCP[i].Y;
@@ -128,18 +154,6 @@ namespace Work5
                 ATA[4, 5] += PCP[i].X * PCP[i].Y;
                 ATA[4, 6] += PCP[i].Y * PCP[i].Z;
                 ATA[5, 6] -= PCP[i].X * PCP[i].Z;
-
-                Ltp[0, 0] = GCP[i].X;
-                Ltp[1, 0] = GCP[i].Y;
-                Ltp[2, 0] = GCP[i].Z;
-                Lp[0, 0] = lamda * PCP[i].X;
-                Lp[1, 0] = lamda * PCP[i].Y;
-                Lp[2, 0] = lamda * PCP[i].Z;
-                L = Matrix.Subtract(Ltp, Matrix.Mutiply(e.R, Lp));
-                ATL[3, 0] += PCP[i].X * L[0, 0] + PCP[i].Y * L[1, 0] + PCP[i].Z * L[2, 0];
-                ATL[4, 0] += PCP[i].X * L[2, 0] - PCP[i].Z * L[0, 0];
-                ATL[5, 0] += PCP[i].Y * L[2, 0] - PCP[i].Z * L[1, 0];
-                ATL[6, 0] += PCP[i].X * L[1, 0] - PCP[i].Y * L[0, 0];
             }
             ATA[5, 4] = ATA[4, 5];
             ATA[6, 4] = ATA[4, 6];
@@ -149,12 +163,12 @@ namespace Work5
         //精度判断
         private bool IsQualified(double[,] dX)
         {
-            double min = 100;
-            double error = 0.00001;
-            for(int i=0;i<dX.Length;i++)
-                if(Math.Abs(dX[i,0])<min)
-                    min = Math.Abs(dX[i, 0]);
-            if (min < error)
+            double max = 0;
+            double error = 0.0001;
+            for(int i=3;i<dX.Length;i++)
+                if(Math.Abs(dX[i,0])>max)
+                    max = Math.Abs(dX[i, 0]);
+            if (max < error)
                 return true;
             else
                 return false;
@@ -167,14 +181,13 @@ namespace Work5
             int num = PCoords.Count();
             double[,] Xtp;
             double[,] dX = { { dx }, { dy }, { dz } };
-            double[,] Xp = new double[3, 1];
+            double[,] Xp;
             MyPoint temp;
 
             for(int i=0;i<num;i++)
             {
-                Xp[0, 0] = lamda * PCoords[i].X;
-                Xp[1, 0] = lamda * PCoords[i].Y;
-                Xp[2, 0] = lamda * PCoords[i].Z;
+                Xp = new double[3, 1] { { PCoords[i].X }, { PCoords[i].Y }, { PCoords[i].Z } };
+                Xp = Matrix.Mutiply(lamda, Xp);
                 Xtp = Matrix.Add(Matrix.Mutiply(e.R, Xp), dX);
                 temp = new MyPoint();
                 temp.X = (float)Xtp[0, 0];

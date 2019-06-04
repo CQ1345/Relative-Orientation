@@ -30,7 +30,8 @@ namespace Work5
         //计算相对定向元素
         private void 计算相对定向元素ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            GetStereopair();//从文件读取同名像点坐标
+            if (GetStereopair() == false)//从文件读取同名像点坐标
+                return;
             MyPoint center = new MyPoint(0, 0, 0);
             EElements leftE = new EElements(center, 0, 0, 0);
             ro = new RelativeOritation(leftPCoords, rightPCoords, leftE, scale);
@@ -46,13 +47,16 @@ namespace Work5
         }
 
         //读取同名像点坐标
-        private void GetStereopair()
+        private bool GetStereopair()
         {
             leftPCoords = new List<MyPoint>();
             rightPCoords = new List<MyPoint>();
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.RestoreDirectory = true;
-            if (dialog.ShowDialog() == DialogResult.OK)
+            DialogResult flag = dialog.ShowDialog();
+            if (flag != DialogResult.OK)
+                return false;
+            else
             {
                 photofile = dialog.FileName;
                 float f;
@@ -81,6 +85,7 @@ namespace Work5
                         rightPCoords.Add(temp);
                     }
                 }
+                return true;
             }
         }
 
@@ -154,16 +159,21 @@ namespace Work5
         //保存绝对定向元素
         private void SaveAOE()
         {
-            OpenFileDialog dialog = new OpenFileDialog();
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Title = "保存绝对定向元素";
             dialog.Filter = "文本文件(*.txt)|*.txt";
-            if(dialog.ShowDialog()==DialogResult.OK)
+            DialogResult flag = dialog.ShowDialog();
+            if (flag != DialogResult.OK)
+                return;
+            else
             {
                 string filename = dialog.FileName;
+                float tran = (float)(180 / Math.PI);
                 using (StreamWriter sw=new StreamWriter(filename))
                 {
                     sw.WriteLine("{0}", ao.lamda);
                     sw.WriteLine("{0},{1},{2}", ao.dx, ao.dy, ao.dz);
-                    sw.WriteLine("{0},{1},{2}", ao.Phi, ao.Omega, ao.Kappa);
+                    sw.WriteLine("{0},{1},{2}", ao.Phi * tran, ao.Omega * tran, ao.Kappa * tran);
                 }
             }
         }
@@ -171,15 +181,19 @@ namespace Work5
         //解算绝对定向元素
         private void 解算绝对定向元素ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<MyPoint> GCP = new List<MyPoint>();
-            List<MyPoint> PCP = new List<MyPoint>();
+            List<MyPoint> GCP, PCP;
             string title;
 
             //读取控制点坐标
+            bool flag;
             title= "选择控制点的地面摄影测量坐标";
-            GCP = GetPoints(title);
+            GCP = GetPoints(title, out flag);
+            if (flag == false)
+                return;
             title = "选择控制点的摄影测量坐标";
-            PCP = GetPoints(title);
+            PCP = GetPoints(title,out flag);
+            if (flag == false)
+                return;
 
             //解算
             ao = new AbsoluteOrientation();
@@ -198,8 +212,12 @@ namespace Work5
             
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.RestoreDirectory = true;
+            dialog.Title = "选择绝对定向元素";
             dialog.Filter = "文本文件(*.txt)|*.txt";
-            if (dialog.ShowDialog() == DialogResult.OK)
+            DialogResult flag = dialog.ShowDialog();
+            if (flag == DialogResult.Cancel)
+                return;
+            else if (flag == DialogResult.OK)
             {
                 string filename = dialog.FileName;
                 string[] data;
@@ -211,9 +229,9 @@ namespace Work5
                     dy = float.Parse(data[1]);
                     dz = float.Parse(data[2]);
                     data = sr.ReadLine().Split(',');
-                    ee.Phi = float.Parse(data[0]);
-                    ee.Omega = float.Parse(data[1]);
-                    ee.Kappa = float.Parse(data[2]);
+                    ee.Phi = (float)(float.Parse(data[0]) / 180 * Math.PI);
+                    ee.Omega = (float)(float.Parse(data[1]) / 180 * Math.PI);
+                    ee.Kappa = (float)(float.Parse(data[2]) / 180 * Math.PI);
                     ao = new AbsoluteOrientation(ee, lamda, dx, dy, dz);
                 }
             }
@@ -223,15 +241,18 @@ namespace Work5
         private void 计算地面摄影测量坐标ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //读取点的摄影测量坐标
+            bool flag;
             string title = "选取点的摄影测量坐标";
-            PCoords = GetPoints(title);
+            PCoords = GetPoints(title, out flag);
+            if (flag == false)
+                return;
 
             result = ao.CalGPCoords(PCoords);//计算点的地面摄影测量坐标
             Output();//显示结果
         }
 
         //读取坐标
-        private List<MyPoint> GetPoints(string title)
+        private List<MyPoint> GetPoints(string title,out bool flag)
         {
             List<MyPoint> coords = new List<MyPoint>();
             MyPoint temp;
@@ -243,8 +264,15 @@ namespace Work5
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = title;
             dialog.Filter = "文本文件(*.txt)|*.txt";
-            if (dialog.ShowDialog() == DialogResult.OK)
+            DialogResult result = dialog.ShowDialog();
+            if(result!=DialogResult.OK)
             {
+                flag = false;
+                return coords;
+            }
+            else
+            {
+                flag = true;
                 filename = dialog.FileName;
                 using (StreamReader sr = new StreamReader(filename))
                 {
